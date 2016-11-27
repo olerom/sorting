@@ -24,7 +24,8 @@ public class ShellSortBench {
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
 //        a = Helper.gen(1000);
-        a = Helper.getArray();
+//        a = Helper.getArray();
+        a = Helper.getSorted(10000);
     }
 
     @Benchmark

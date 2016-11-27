@@ -23,7 +23,9 @@ public class KthMedianBench {
 
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
-        a = Helper.gen(100000);
+//        a = Helper.gen(10000);
+//        a = Helper.getArray();
+        a = Helper.getSorted(10000);
     }
 
     @Benchmark

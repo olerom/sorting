@@ -5,16 +5,12 @@ package com.romanov.sorting.sort;
  */
 public class MergeSort {
     public static int[] sort(int[] array) {
-
-        sortM(array, 0, array.length - 1);
-
+        sort(array, 0, array.length - 1);
         return array;
     }
 
     public static void merge(int[] array, int left, int mid, int right) {
-
-        int[] t = new int[right + 1 - left];
-
+        int[] t = new int[right - left + 1];
         for (int i = left; i <= right; i++) {
             t[i - left] = array[i];
         }
@@ -32,13 +28,11 @@ public class MergeSort {
         }
     }
 
-    public static void sortM(int[] a, int left, int right) {
-        if (left >= right) {
-            return;
-        } else {
+    public static void sort(int[] a, int left, int right) {
+        if (left < right) {
             int mid = ((left + right) >> 1);
-            sortM(a, left, mid);
-            sortM(a, mid + 1, right);
+            sort(a, left, mid);
+            sort(a, mid + 1, right);
             merge(a, left, mid, right);
         }
     }

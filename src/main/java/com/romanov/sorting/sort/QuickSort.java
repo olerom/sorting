@@ -32,4 +32,11 @@ public class QuickSort {
         array = sort(array, idx + 1, right);
         return array;
     }
+
+    public static int[] sort(int[] arr) {
+        if (arr.length > 0) {
+            sort(arr, 0, arr.length - 1);
+        }
+        return arr;
+    }
 }

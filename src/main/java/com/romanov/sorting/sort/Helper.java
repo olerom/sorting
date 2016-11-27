@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.concurrent.ThreadLocalRandom;
@@ -15,10 +18,9 @@ public class Helper {
 
     public static void main(String[] args) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BiggerData.txt"))) {
-            int[] output = gen(100000);
 
-            for (int i = 0; i < 100000; i++) {
-                bufferedWriter.write(output[i] + " ");
+            for (int i = 0; i < 10000; i++) {
+                bufferedWriter.write(new Random().nextInt(1000000) + " ");
             }
 
         } catch (Exception ex) {
@@ -35,11 +37,11 @@ public class Helper {
     }
 
     public static int[] getArray() {
-        int[] array = new int[100000];
+        int[] array = new int[10000];
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("BiggerData.txt"))) {
             StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-            for (int i = 0; i < 100000; i++) {
+            for (int i = 0; i < 10000; i++) {
                 array[i] = Integer.parseInt(stringTokenizer.nextToken());
             }
         } catch (Exception ex) {
@@ -47,6 +49,29 @@ public class Helper {
         }
 
         return array;
+    }
+
+    public static int[] getArraySmall() {
+        int[] array = new int[1000];
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("SmallData.txt"))) {
+            StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+            for (int i = 0; i < 1000; i++) {
+                array[i] = Integer.parseInt(stringTokenizer.nextToken());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return array;
+    }
+
+    public static int[] getSorted(int n) {
+        int[] a = new int[n];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = i;
+        }
+        return a;
     }
 
     public static int[] gen(int n) {
@@ -72,7 +97,7 @@ public class Helper {
     public static int[] antiQuick(int n) {
         int[] a = new int[n];
         for (int i = 0; i < a.length; i++) {
-            a[i] = n - i;
+            a[i] = i + 1;
         }
         for (int i = 2; i < a.length; i++) {
             int tmp = a[i];
@@ -96,5 +121,32 @@ public class Helper {
         if (right == a.length)
             return right - 1;
         return right;
+    }
+
+    public static String[] genStrings(int n) {
+        String[] a = new String[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = getRandLen(new Random().nextInt(60));
+        }
+        return a;
+    }
+
+    public static String[] getMSDBest(int n) {
+        String[] a = new String[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = getRandLen(new Random().nextInt(60));
+        }
+        Arrays.sort(a);
+        return a;
+    }
+
+    public static String getRandLen(int n) {
+        char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRTSUVWXYZ".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            char c = chars[new Random().nextInt(chars.length)];
+            sb.append(c);
+        }
+        return sb.toString();
     }
 }

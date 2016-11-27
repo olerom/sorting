@@ -26,8 +26,9 @@ public class InsertionSortBinarySearchBench {
 //        a = Helper.gen(1000);
 //    }
     public void setUpInvocation() {
-//        a = Helper.genReverse(1000);
-        a = Helper.getArray();
+        a = Helper.genReverse(10000);
+//        a = Helper.getArray();
+//        a = Helper.getSorted(10000);
     }
 
     @Benchmark

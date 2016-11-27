@@ -1,5 +1,6 @@
 package com.romanov.sorting;
 
+import com.romanov.sorting.sort.Helper;
 import com.romanov.sorting.sort.QuickSort;
 import org.junit.Test;
 
@@ -13,62 +14,101 @@ import static org.junit.Assert.assertTrue;
 public class QuickSortTest {
     @Test
     public void maxAndMin() {
-        int[] test = {Integer.MAX_VALUE, Integer.MIN_VALUE};
-        int[] result = QuickSort.sort(test, 0, test.length - 1);
-        int[] compare = {Integer.MIN_VALUE, Integer.MAX_VALUE};
+        int test[] = Helper.gen(1000);
+        test[0] = Integer.MIN_VALUE;
+        test[1] = Integer.MAX_VALUE;
 
-        assertTrue(Arrays.equals(compare, result));
+        int tmp[] = new int[1000];
+
+        System.arraycopy(test, 0, tmp, 0, test.length);
+
+        QuickSort.sort(test);
+        Arrays.sort(tmp);
+
+        assertTrue(Arrays.equals(test, tmp));
     }
 
     @Test
     public void maxPluseMinus() {
-        int[] test = {Integer.MAX_VALUE + 1, Integer.MAX_VALUE - 1};
-        int[] result = QuickSort.sort(test, 0, test.length - 1);
-        int[] compare = {Integer.MAX_VALUE + 1, Integer.MAX_VALUE - 1};
+        int test[] = Helper.gen(1000);
+        test[0] = Integer.MAX_VALUE + 1;
+        test[1] = Integer.MAX_VALUE - 1;
 
-        assertTrue(Arrays.equals(compare, result));
+        int tmp[] = new int[1000];
+
+        System.arraycopy(test, 0, tmp, 0, test.length);
+
+        QuickSort.sort(test);
+        Arrays.sort(tmp);
+
+        assertTrue(Arrays.equals(test, tmp));
     }
 
     @Test
     public void minMinusPluse() {
-        int[] test = {Integer.MIN_VALUE - 1, Integer.MIN_VALUE + 1};
-        int[] result = QuickSort.sort(test, 0, test.length - 1);
-        int[] compare = {Integer.MIN_VALUE + 1, Integer.MIN_VALUE - 1};
+        int test[] = Helper.gen(1000);
+        test[0] = Integer.MIN_VALUE - 1;
+        test[1] = Integer.MIN_VALUE + 1;
 
-        assertTrue(Arrays.equals(compare, result));
+        int tmp[] = new int[1000];
+
+        System.arraycopy(test, 0, tmp, 0, test.length);
+
+        QuickSort.sort(test);
+        Arrays.sort(tmp);
+
+        assertTrue(Arrays.equals(test, tmp));
     }
 
     @Test
     public void duplicate() {
-        int[] test = {5, 5, 5, 4, 3, 2, 2, 3};
-        int[] result = QuickSort.sort(test, 0, test.length - 1);
-        int[] compare = {2, 2, 3, 3, 4, 5, 5, 5};
+        int test[] = Helper.gen(1000);
+        test[0] = 100;
+        test[1] = 100;
+        test[110] = 100;
+        test[111] = 100;
 
-        assertTrue(Arrays.equals(compare, result));
+        int tmp[] = new int[1000];
+
+        System.arraycopy(test, 0, tmp, 0, test.length);
+
+        QuickSort.sort(test);
+        Arrays.sort(tmp);
+
+        assertTrue(Arrays.equals(test, tmp));
     }
 
     @Test
     public void oddNumber() {
-        int[] test = {8, 6, 5, 1, 5, 3, 7};
-        int[] result = QuickSort.sort(test, 0, test.length - 1);
-        int[] compare = {1, 3, 5, 5, 6, 7, 8};
+        int test[] = Helper.gen(10000);
+        int tmp[] = new int[10000];
 
-        assertTrue(Arrays.equals(compare, result));
+        System.arraycopy(test, 0, tmp, 0, test.length);
+
+        QuickSort.sort(test);
+        Arrays.sort(tmp);
+
+        assertTrue(Arrays.equals(test, tmp));
     }
 
     @Test
     public void evenNumber() {
-        int[] test = {8, 6, 5, 1, 5, 3, 7, -6};
-        int[] result = QuickSort.sort(test, 0, test.length - 1);
-        int[] compare = {-6, 1, 3, 5, 5, 6, 7, 8};
+        int test[] = Helper.gen(10001);
 
-        assertTrue(Arrays.equals(compare, result));
+        int tmp[] = new int[10001];
+
+        System.arraycopy(test, 0, tmp, 0, test.length);
+
+        QuickSort.sort(test);
+        Arrays.sort(tmp);
+
+        assertTrue(Arrays.equals(test, tmp));
     }
 
     @Test
     public void oneElement() {
         int[] test = {8};
-        int[] result = QuickSort.sort(test, 0, test.length - 1);
+        int[] result = QuickSort.sort(test);
         int[] compare = {8};
 
         assertTrue(Arrays.equals(compare, result));
@@ -77,10 +117,9 @@ public class QuickSortTest {
     @Test
     public void empty() {
         int[] test = {};
-        int[] result = QuickSort.sort(test, 0, test.length - 1);
+        int[] result = QuickSort.sort(test);
         int[] compare = {};
 
         assertTrue(Arrays.equals(compare, result));
     }
 }
-

@@ -4,9 +4,13 @@ package com.romanov.sorting.sort;
  * Created by olerom on 21.11.16.
  */
 public class KthElementMedian {
-    public static void main(String[] args) {
-        int[] test = {1, 4, 5, 6, 3, 2};
-        System.out.println(KthElementMedian.kthElement(test, 0, test.length - 1, 6));
+    private static int findMedian(int arr[], int left, int right) {
+        sort(arr, left, right);
+        return ((right + left) % 2 == 0) ? arr[(left + right - 1) / 2] : arr[(left + right) / 2];
+    }
+
+    public static int kthElement(int[] arr, int k) {
+        return kthElement(arr, 0, arr.length - 1, k);
     }
 
     public static int kthElement(int[] arr, int left, int right, int k) {
@@ -17,12 +21,12 @@ public class KthElementMedian {
 
             for (i = 0; i < n / 5; i++) {
                 int m = left + 5 * i;
-                medians[i] = median(arr, m, m + 5);
+                medians[i] = findMedian(arr, m, m + 5);
             }
 
             if (i * 5 < n) {
                 int m = left + i * 5;
-                medians[i] = median(arr, m, m + n % 5);
+                medians[i] = findMedian(arr, m, m + n % 5);
                 i++;
             }
 
@@ -37,7 +41,15 @@ public class KthElementMedian {
             }
             return kthElement(arr, pos + 1, right, k - pos + left - 1);
         }
-        return Integer.MIN_VALUE;
+        return Integer.MAX_VALUE;// sout так не должно быть, хотя и так сойдет
+    }
+
+    private static void sort(int[] ar, int left, int right) {
+        for (int i = left + 1; i < right; i++) {
+            for (int j = i; j > left && ar[j] < ar[j - 1]; j--) {
+                Helper.swap(ar, j, j - 1);
+            }
+        }
     }
 
     private static int partition(int[] arr, int left, int right, int k) {
@@ -48,7 +60,6 @@ public class KthElementMedian {
             }
         }
         Helper.swap(arr, i, right);
-
         i = left;
         for (int j = left; j <= right - 1; j++) {
             if (arr[j] <= k) {
@@ -56,27 +67,7 @@ public class KthElementMedian {
                 i++;
             }
         }
-
         Helper.swap(arr, i, right);
         return i;
     }
-
-    private static int median(int[] arr, int left, int right) {
-        sort(arr, left, right);
-        return ((right + left) % 2 == 0) ? arr[(left + right - 1) / 2] : arr[(left + right) / 2];
-//        return ((right >> 1 + left >> 1) == 1) ? arr[left >> 1 + right >> 1] : arr[left >> 1 + (right - 1) >> 1];
-    }
-
-    // Insertion? Possibly, enough
-    private static void sort(int[] array, int left, int right) {
-        for (int i = left; i < right; i++) {
-            int j;
-            int curr = array[i];
-            for (j = i; j > 0 && array[j - 1] > curr; j--) {
-                array[j] = array[j - 1];
-            }
-            array[j] = curr;
-        }
-    }
-
 }
